@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TFS_SA.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DefaultServerPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">$</Value>
+    </Setting>
+    <Setting Name="DefaultLocalPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:/</Value>
+    </Setting>
+    <Setting Name="ConnectionFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ConnectionSetting.xml</Value>
+    </Setting>
+    <Setting Name="TfsServerUri" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="TfsLocalMap" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

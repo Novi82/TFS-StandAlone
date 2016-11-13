@@ -1,0 +1,78 @@
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\TFS SA2.exe.config
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\TFS SA2.exe
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\TFS SA2.pdb
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.Build2.WebApi.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.Chat.WebApi.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.Core.WebApi.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.Policy.WebApi.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.SourceControl.WebApi.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.Test.WebApi.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.TestManagement.WebApi.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.Work.WebApi.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.WorkItemTracking.WebApi.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.VisualStudio.Services.Common.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.VisualStudio.Services.WebApi.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Newtonsoft.Json.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\System.Net.Http.Formatting.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\System.Web.Http.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.WorkItemTracking.Client.DataStoreLoader.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.Build2.WebApi.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.Chat.WebApi.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.Core.WebApi.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.Policy.WebApi.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.SourceControl.WebApi.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.Test.WebApi.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.TestManagement.WebApi.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.Work.WebApi.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.TeamFoundation.WorkItemTracking.WebApi.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.VisualStudio.Services.Common.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.VisualStudio.Services.WebApi.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Newtonsoft.Json.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\System.Net.Http.Formatting.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\System.Web.Http.xml
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\cs\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\de\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\es\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\fr\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\it\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\ja\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\ko\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\pl\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\pt-BR\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\ru\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\tr\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\zh-Hans\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\zh-Hant\Microsoft.TeamFoundation.Core.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\cs\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\de\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\es\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\fr\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\it\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\ja\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\ko\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\pl\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\pt-BR\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\ru\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\tr\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\zh-Hans\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\zh-Hant\Microsoft.VisualStudio.Services.Common.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\cs\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\de\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\es\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\fr\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\it\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\ja\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\ko\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\pl\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\pt-BR\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\ru\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\tr\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\zh-Hans\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\zh-Hant\Microsoft.VisualStudio.Services.WebApi.resources.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\bin\Debug\Microsoft.WITDataStore.dll
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\obj\Debug\TFS Stand Alone.csprojResolveAssemblyReference.cache
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\obj\Debug\TFS_SA.GUI.frmMain.resources
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\obj\Debug\TFS_SA.Properties.Resources.resources
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\obj\Debug\TFS Stand Alone.csproj.GenerateResource.Cache
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\obj\Debug\TFS SA2.exe
+D:\WorkSpace\VisualStudio\TFS SA2\TFS SA2\obj\Debug\TFS SA2.pdb
