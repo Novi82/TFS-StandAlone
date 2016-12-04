@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.pnlContent = new System.Windows.Forms.SplitContainer();
+            this.btnWorkspace = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbxWorkspace = new System.Windows.Forms.ComboBox();
             this.trvServerFolder = new System.Windows.Forms.TreeView();
             this.lblLocalPath = new System.Windows.Forms.LinkLabel();
             this.lstFile = new System.Windows.Forms.ListView();
@@ -43,12 +46,12 @@
             this.ttProgress = new System.Windows.Forms.ToolStripProgressBar();
             this.ttrMessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlMenu = new System.Windows.Forms.Panel();
-            this.btnGetFolder = new System.Windows.Forms.Button();
+            this.btnGetFile = new System.Windows.Forms.Button();
             this.ButtonIcon = new System.Windows.Forms.ImageList(this.components);
+            this.btnGetFolder = new System.Windows.Forms.Button();
             this.btnRefesh = new System.Windows.Forms.Button();
             this.btnConnect = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnGetFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pnlContent)).BeginInit();
             this.pnlContent.Panel1.SuspendLayout();
             this.pnlContent.Panel2.SuspendLayout();
@@ -67,6 +70,9 @@
             // 
             // pnlContent.Panel1
             // 
+            this.pnlContent.Panel1.Controls.Add(this.btnWorkspace);
+            this.pnlContent.Panel1.Controls.Add(this.label1);
+            this.pnlContent.Panel1.Controls.Add(this.cbxWorkspace);
             this.pnlContent.Panel1.Controls.Add(this.trvServerFolder);
             // 
             // pnlContent.Panel2
@@ -77,20 +83,46 @@
             this.pnlContent.SplitterDistance = 337;
             this.pnlContent.TabIndex = 6;
             // 
+            // btnWorkspace
+            // 
+            this.btnWorkspace.Location = new System.Drawing.Point(299, 5);
+            this.btnWorkspace.Name = "btnWorkspace";
+            this.btnWorkspace.Size = new System.Drawing.Size(35, 21);
+            this.btnWorkspace.TabIndex = 13;
+            this.btnWorkspace.Text = "...";
+            this.btnWorkspace.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(62, 13);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Workspace";
+            // 
+            // cbxWorkspace
+            // 
+            this.cbxWorkspace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxWorkspace.FormattingEnabled = true;
+            this.cbxWorkspace.Location = new System.Drawing.Point(71, 5);
+            this.cbxWorkspace.Name = "cbxWorkspace";
+            this.cbxWorkspace.Size = new System.Drawing.Size(222, 21);
+            this.cbxWorkspace.TabIndex = 12;
+            // 
             // trvServerFolder
             // 
-            this.trvServerFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trvServerFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.trvServerFolder.Location = new System.Drawing.Point(0, 0);
+            this.trvServerFolder.Location = new System.Drawing.Point(0, 28);
             this.trvServerFolder.Name = "trvServerFolder";
-            this.trvServerFolder.Size = new System.Drawing.Size(337, 456);
+            this.trvServerFolder.Size = new System.Drawing.Size(337, 428);
             this.trvServerFolder.TabIndex = 1;
             this.trvServerFolder.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trvServerFolder_AfterSelect);
             // 
             // lblLocalPath
             // 
             this.lblLocalPath.AutoSize = true;
-            this.lblLocalPath.Location = new System.Drawing.Point(3, 4);
+            this.lblLocalPath.Location = new System.Drawing.Point(3, 8);
             this.lblLocalPath.Name = "lblLocalPath";
             this.lblLocalPath.Size = new System.Drawing.Size(85, 13);
             this.lblLocalPath.TabIndex = 11;
@@ -111,9 +143,9 @@
             this.lstFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstFile.FullRowSelect = true;
             this.lstFile.GridLines = true;
-            this.lstFile.Location = new System.Drawing.Point(2, 20);
+            this.lstFile.Location = new System.Drawing.Point(2, 28);
             this.lstFile.Name = "lstFile";
-            this.lstFile.Size = new System.Drawing.Size(576, 436);
+            this.lstFile.Size = new System.Drawing.Size(576, 428);
             this.lstFile.SmallImageList = this.imlIcon;
             this.lstFile.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstFile.TabIndex = 0;
@@ -182,6 +214,29 @@
             this.pnlMenu.Size = new System.Drawing.Size(922, 47);
             this.pnlMenu.TabIndex = 11;
             // 
+            // btnGetFile
+            // 
+            this.btnGetFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGetFile.ImageKey = "Get";
+            this.btnGetFile.ImageList = this.ButtonIcon;
+            this.btnGetFile.Location = new System.Drawing.Point(279, 3);
+            this.btnGetFile.Name = "btnGetFile";
+            this.btnGetFile.Padding = new System.Windows.Forms.Padding(10, 0, 25, 0);
+            this.btnGetFile.Size = new System.Drawing.Size(131, 41);
+            this.btnGetFile.TabIndex = 1;
+            this.btnGetFile.Text = "Get File";
+            this.btnGetFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGetFile.UseVisualStyleBackColor = true;
+            this.btnGetFile.Click += new System.EventHandler(this.btnGetFile_Click);
+            // 
+            // ButtonIcon
+            // 
+            this.ButtonIcon.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ButtonIcon.ImageStream")));
+            this.ButtonIcon.TransparentColor = System.Drawing.Color.Transparent;
+            this.ButtonIcon.Images.SetKeyName(0, "Get");
+            this.ButtonIcon.Images.SetKeyName(1, "Refresh");
+            // 
             // btnGetFolder
             // 
             this.btnGetFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -197,13 +252,6 @@
             this.btnGetFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGetFolder.UseVisualStyleBackColor = true;
             this.btnGetFolder.Click += new System.EventHandler(this.btnGetFolder_Click);
-            // 
-            // ButtonIcon
-            // 
-            this.ButtonIcon.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ButtonIcon.ImageStream")));
-            this.ButtonIcon.TransparentColor = System.Drawing.Color.Transparent;
-            this.ButtonIcon.Images.SetKeyName(0, "Get");
-            this.ButtonIcon.Images.SetKeyName(1, "Refresh");
             // 
             // btnRefesh
             // 
@@ -235,22 +283,6 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // btnGetFile
-            // 
-            this.btnGetFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGetFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGetFile.ImageKey = "Get";
-            this.btnGetFile.ImageList = this.ButtonIcon;
-            this.btnGetFile.Location = new System.Drawing.Point(279, 3);
-            this.btnGetFile.Name = "btnGetFile";
-            this.btnGetFile.Padding = new System.Windows.Forms.Padding(10, 0, 25, 0);
-            this.btnGetFile.Size = new System.Drawing.Size(131, 41);
-            this.btnGetFile.TabIndex = 1;
-            this.btnGetFile.Text = "Get File";
-            this.btnGetFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGetFile.UseVisualStyleBackColor = true;
-            this.btnGetFile.Click += new System.EventHandler(this.btnGetFile_Click);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,9 +296,9 @@
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TFS StandAlone";
-            this.Load += new System.EventHandler(this.frmMain_Load);
             this.Shown += new System.EventHandler(this.frmMain_Shown);
             this.pnlContent.Panel1.ResumeLayout(false);
+            this.pnlContent.Panel1.PerformLayout();
             this.pnlContent.Panel2.ResumeLayout(false);
             this.pnlContent.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlContent)).EndInit();
@@ -300,6 +332,9 @@
         private System.Windows.Forms.Button btnRefesh;
         private System.Windows.Forms.ImageList ButtonIcon;
         private System.Windows.Forms.Button btnGetFile;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbxWorkspace;
+        private System.Windows.Forms.Button btnWorkspace;
     }
 }
 

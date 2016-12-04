@@ -131,6 +131,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmMain.Controller.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,11 +145,15 @@
     <Compile Include="Gui Support\ListViewSupport.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TfsWapper\Enum.cs" />
     <Compile Include="TfsWapper\Kien.cs" />
+    <Compile Include="TfsWapper\Roles.cs" />
     <Compile Include="TfsWapper\TfsConfigurationServer.cs" />
     <Compile Include="TfsWapper\TfsConnection .cs" />
     <Compile Include="TfsWapper\TfsConnectionSerialize.cs" />
+    <Compile Include="TfsWapper\TfsWorkspace.cs" />
     <Compile Include="TfsWapper\TfsWrapper.cs" />
+    <Compile Include="TfsWapper\WorkspaceItem.cs" />
     <Compile Include="Utils\Utils.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

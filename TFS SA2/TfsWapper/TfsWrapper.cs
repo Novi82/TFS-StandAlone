@@ -13,91 +13,107 @@ using System.Collections;
 using Microsoft.TeamFoundation.Client;
 namespace TFS_SA.TfsWapper
 {
-    public enum ConnectResult
-    {
-        Success,
-        Cancel,
-        Failure
-    }
-
-    public enum Result
-    {
-        Success,
-        Cancel,
-        Failure
-    }
     /// <summary>
     /// Manage TFS
     /// </summary>
     public class TfsWrapper
     {
         #region PROPERTY
-        // protected readonly string MyUri = ConfigurationSettings.AppSettings["TfsUri"];
-        public String workspacePath = string.Empty;
+
+        private TfsTeamProjectCollection _Tfs;
+        public TfsTeamProjectCollection Tfs
+        {
+            get { return _Tfs; }
+            set { _Tfs = value; }
+        }
+
+        //private ProjectInfo _TeamProject;
+        //public ProjectInfo TeamProject
+        //{
+        //    get { return _TeamProject; }
+        //    set { _TeamProject = value; }
+        //}
+
+        private VersionControlServer _VCS;
+        public VersionControlServer VCS
+        {
+            get { return _VCS; }
+            set { _VCS = value; }
+        }
+
+        private Workspace _WorkSpace;
+        public Workspace WorkSpace
+        {
+            get { return _WorkSpace; }
+            set { _WorkSpace = value; }
+        }
+
         public Boolean IsConnected;
         //public TfsConnection tfsConnection;
-        public TfsConnection tfsConnection { get; set; }
-        public TfsWrapper()
-        {
-            this.tfsConnection = new TfsConnection();
-        }
-        public Boolean IsMapped
-        {
-            get { return tfsConnection.IsMapped; }
-        }
+        //public TfsConnection tfsConnection { get; set; }
+        //public TfsWrapper()
+        //{
+        //    this.tfsConnection = new TfsConnection();
+        //}
+        //public Boolean IsMapped
+        //{
+        //    get { return tfsConnection.IsMapped; }
+        //}
         #endregion
 
         #region PRE_CONNECT
-        /// <summary>
-        /// Load Connection 
-        /// </summary>
-        /// <param name="_tfsConnection">TFS Connection</param>
-        public void LoadConnection(TfsConnection _tfsConnection)
-        {
-            this.tfsConnection = _tfsConnection;
-        }
+        ///// <summary>
+        ///// Load Connection 
+        ///// </summary>
+        ///// <param name="_tfsConnection">TFS Connection</param>
+        //public void LoadConnection(TfsConnection _tfsConnection)
+        //{
+        //    this.tfsConnection = _tfsConnection;
+        //}
 
         /// <summary>
         ///  Connect to TFS
         /// </summary>
-        public ConnectResult Connect()
+        public TFS_ConnectResult Connect()
         {
-            var notes = new StringBuilder();
+            //todo del var notes = new StringBuilder();
             // Connect to TFS Using Team Project Picker, the  user is allowed to select only one project
-            var tfsPp = new TeamProjectPicker(TeamProjectPickerMode.MultiProject, false);
-            var rs = tfsPp.ShowDialog();
-            switch (rs)
+            using (TeamProjectPicker tfsPp = new TeamProjectPicker(TeamProjectPickerMode.MultiProject, false))
             {
-                case System.Windows.Forms.DialogResult.OK:
+                var rs = tfsPp.ShowDialog();
+                switch (rs)
+                {
+                    case System.Windows.Forms.DialogResult.OK:
 
-                    // The TFS project collection
-                    try
-                    {
-                        this.tfsConnection.Tfs = tfsPp.SelectedTeamProjectCollection;
-                        this.tfsConnection.Tfs.EnsureAuthenticated();
-                    }
-                    catch (NullReferenceException ex)
-                    {
-                        throw new NullReferenceException("No Team Project have been selected!");
-                    }
+                        // The TFS project collection
+                        try
+                        {
+                            this.Tfs = tfsPp.SelectedTeamProjectCollection;
+                            this.Tfs.EnsureAuthenticated();
+                        }
+                        catch (NullReferenceException)
+                        {
+                            throw new NullReferenceException("No Team Project have been selected!");
+                        }
 
-                    if (tfsPp.SelectedProjects.Any())
-                    {
-                        //  The selected Team Project
-                        this.tfsConnection.TeamProject = tfsPp.SelectedProjects[0];
-                        var fileName = Properties.Settings.Default["ConnectionFile"].ToString();
-                        this.SaveConnection(tfsConnection, fileName);
-                        this.tfsConnection.VersionControlServer = this.tfsConnection.Tfs.GetService<VersionControlServer>();
-                        //getWorkSpace(this.LoadMapPath());
-                        this.tfsConnection.WorkSpace = this.GetkWorkSpace(Environment.MachineName);
-                        this.CheckWorkSpacePermission(tfsConnection.WorkSpace);
-                        IsConnected = true;
-                    }
-                    return ConnectResult.Success;
-                case System.Windows.Forms.DialogResult.Cancel:
-                    return ConnectResult.Cancel;
-                default:
-                    return ConnectResult.Failure;
+                        if (tfsPp.SelectedProjects.Any())
+                        {
+                            //  The selected Team Project
+                            //this.TeamProject = tfsPp.SelectedProjects[0];
+                            var fileName = Properties.Settings.Default["ConnectionFile"].ToString();
+                            this.SaveConnection(_Tfs.Uri, fileName);
+                            this.VCS = this.Tfs.GetService<VersionControlServer>();
+                            //todo getWorkSpace(this.LoadMapPath());
+                            this.WorkSpace = this.GetkWorkSpace(Environment.MachineName);
+                            this.CheckWorkSpacePermission(WorkSpace);
+                            IsConnected = true;
+                        }
+                        return TFS_ConnectResult.Success;
+                    case System.Windows.Forms.DialogResult.Cancel:
+                        return TFS_ConnectResult.Cancel;
+                    default:
+                        return TFS_ConnectResult.Failure;
+                }
             }
         }
 
@@ -121,6 +137,7 @@ namespace TFS_SA.TfsWapper
                 IsConnected = false;
                 throw new Exception("Error Cannot Get WorkSpace!");
             }
+            IsConnected = true;
         }
         /// <summary>
         /// TODO - co le se xoa
@@ -136,11 +153,11 @@ namespace TFS_SA.TfsWapper
         /// </summary>
         /// <param name="_Connection"></param>
         /// <returns></returns>
-        public Boolean SaveConnection(TfsConnection _Connection, String _fileName)
+        public Boolean SaveConnection(Uri _Connection, String _fileName)
         {
             try
             {
-                var uri = _Connection.Tfs.Uri.ToString();
+                var uri = _Connection.ToString();
                 Properties.Settings.Default["TfsServerUri"] = uri;
                 Properties.Settings.Default.Save();
                 return true;
@@ -156,26 +173,26 @@ namespace TFS_SA.TfsWapper
         /// load connection from FIle
         /// </summary>
         /// <returns></returns>
-        public ConnectResult LoadConnectionFromFile(String _fileName)
+        public TFS_ConnectResult LoadConnectionFromFile(String _fileName)
         {
             try
             {
                 var uri = Properties.Settings.Default["TfsServerUri"].ToString();
-                this.tfsConnection.Tfs = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(new Uri(uri));
-                this.tfsConnection.Tfs.EnsureAuthenticated();
-                this.tfsConnection.VersionControlServer = this.tfsConnection.Tfs.GetService<VersionControlServer>();
-                this.tfsConnection.WorkSpace = this.GetkWorkSpace(Environment.MachineName);
-                this.CheckWorkSpacePermission(tfsConnection.WorkSpace);
-                IsConnected = true;
-                return ConnectResult.Success;
+                this.Tfs = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(new Uri(uri));
+                this.Tfs.EnsureAuthenticated();
+                this.VCS = this.Tfs.GetService<VersionControlServer>();
+                this.WorkSpace = this.GetkWorkSpace(Environment.MachineName);
+                this.CheckWorkSpacePermission(WorkSpace);
+                //IsConnected = true;
+                return TFS_ConnectResult.Success;
             }
             catch (WorkspaceExistsException)
             {
-                return ConnectResult.Failure;
+                return TFS_ConnectResult.Failure;
             }
             catch (Exception ex)
             {
-                return ConnectResult.Failure;
+                return TFS_ConnectResult.Failure;
             }
         }
 
@@ -186,7 +203,7 @@ namespace TFS_SA.TfsWapper
         /// <returns></returns>
         public String GetLastedCommiter(String _path)
         {
-            IEnumerable results = this.tfsConnection.VersionControlServer.QueryHistory(_path,
+            IEnumerable results = this.VCS.QueryHistory(_path,
                                                     VersionSpec.Latest, 0, RecursionType.Full,
                                                     null, null, null, int.MaxValue, true, true);
             List<Changeset> changesets = results.Cast<Changeset>().ToList();
@@ -197,14 +214,13 @@ namespace TFS_SA.TfsWapper
         #endregion
 
         #region GET INFOR
-
         /// <summary>
         /// GetRoot Path
         /// </summary>
         /// <returns></returns>
         public Item GetRoot()
         {
-            return this.tfsConnection.VersionControlServer.GetItem("$/", VersionSpec.Latest, DeletedState.NonDeleted, false);
+            return this.VCS.GetItem("$/", VersionSpec.Latest, DeletedState.NonDeleted, false);
         }
 
         /// <summary>
@@ -216,12 +232,12 @@ namespace TFS_SA.TfsWapper
         {
             if (IsConnected)
             {
-                return this.tfsConnection.VersionControlServer.GetItems(_path,
-                                                                        VersionSpec.Latest,
-                                                                        RecursionType.OneLevel,
-                                                                        DeletedState.NonDeleted,
-                                                                        ItemType.Folder,
-                                                                        false);
+                return this.VCS.GetItems(_path,
+                                                            VersionSpec.Latest,
+                                                            RecursionType.OneLevel,
+                                                            DeletedState.NonDeleted,
+                                                            ItemType.Folder,
+                                                            false);
             }
             else
             {
@@ -238,7 +254,7 @@ namespace TFS_SA.TfsWapper
         {
             if (IsConnected)
             {
-                return this.tfsConnection.VersionControlServer.GetItems(_FolderPath,
+                return this.VCS.GetItems(_FolderPath,
                                                                         VersionSpec.Latest,
                                                                         RecursionType.OneLevel,
                                                                         DeletedState.NonDeleted,
@@ -251,54 +267,41 @@ namespace TFS_SA.TfsWapper
             }
         }
 
-        public Workspace GetkWorkSpace(String _wsName)
-        {
-            var rs = tfsConnection.VersionControlServer.QueryWorkspaces(string.IsNullOrEmpty(_wsName) ? null : _wsName,
-                                        null,
-                                        null);
-            if (rs.Length > 0)
-            {
-                return rs[0];
-            }
-            else
-            {
-                return this.tfsConnection.VersionControlServer.CreateWorkspace(Environment.MachineName);
-            }
-        }
-        public String LoadMapPath()
-        {
-            try
-            {
-                var localMap = Properties.Settings.Default["TfsLocalMap"].ToString();
-                tfsConnection.LocalPath = localMap;
-                return localMap;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
+       
+        //public String LoadMapPath()
+        //{
+        //    try
+        //    {
+        //        var localMap = Properties.Settings.Default["TfsLocalMap"].ToString();
+        //        LocalPath = localMap;
+        //        return localMap;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return null;
+        //    }
+        //}
 
-        public Boolean SaveMapPath(TfsConnection _Connection)
-        {
-            try
-            {
-                var localMap = _Connection.LocalPath.ToString();
-                Properties.Settings.Default["TfsLocalMap"] = localMap;
-                Properties.Settings.Default.Save();
-                return true;
+        //public Boolean SaveMapPath(TfsConnection _Connection)
+        //{
+        //    try
+        //    {
+        //        var localMap = _Connection.LocalPath.ToString();
+        //        Properties.Settings.Default["TfsLocalMap"] = localMap;
+        //        Properties.Settings.Default.Save();
+        //        return true;
 
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-        public void SetMapPath(String _Path)
-        {
-            tfsConnection.LocalPath = _Path;
-            this.SaveMapPath(tfsConnection);
-        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return false;
+        //    }
+        //}
+        //public void SetMapPath(String _Path)
+        //{
+        //    LocalPath = _Path;
+        //    this.SaveMapPath(tfsConnection);
+        //}
         /// <summary>
         /// get server Path
         /// </summary>
@@ -306,7 +309,7 @@ namespace TFS_SA.TfsWapper
         /// <returns>Server Path</returns>
         public String getServerItem(String _localPath)
         {
-            return tfsConnection.WorkSpace.GetServerItemForLocalItem(_localPath);
+            return WorkSpace.GetServerItemForLocalItem(_localPath);
         }
         /// <summary>
         /// get Local Path
@@ -315,7 +318,7 @@ namespace TFS_SA.TfsWapper
         /// <returns>Local Path</returns>
         public String getLocalItem(String _serverPath)
         {
-            return tfsConnection.WorkSpace.GetLocalItemForServerItem(_serverPath);
+            return WorkSpace.GetLocalItemForServerItem(_serverPath);
         }
 
         /// <summary>
@@ -328,7 +331,7 @@ namespace TFS_SA.TfsWapper
         {
             try
             {
-                tfsConnection.WorkSpace.GetServerItemForLocalItem(_localPath);
+                WorkSpace.GetServerItemForLocalItem(_localPath);
                 return true;
             }
             catch (Exception)
@@ -345,7 +348,7 @@ namespace TFS_SA.TfsWapper
         {
             try
             {
-                tfsConnection.WorkSpace.GetLocalItemForServerItem(_serverPath);
+                WorkSpace.GetLocalItemForServerItem(_serverPath);
                 return true;
             }
             catch (Exception)
@@ -363,11 +366,11 @@ namespace TFS_SA.TfsWapper
         /// <param name="_localFile">Local Path</param>
         /// <param name="_msg">Message Return</param>
         /// <returns></returns>
-        public Result dowloadFile(String _serverFile, String _localFile,ref String _msg)
+        public Result dowloadFile(String _serverFile, String _localFile, ref String _msg)
         {
             try
             {
-                tfsConnection.VersionControlServer.DownloadFile(_serverFile, _localFile);
+                VCS.DownloadFile(_serverFile, _localFile);
                 _msg = String.Empty;
                 return Result.Success;
             }
@@ -388,10 +391,10 @@ namespace TFS_SA.TfsWapper
         public Result dowloadFile(Item _serverItem)
         {
             throw new NotImplementedException();
-           if(_serverItem != null)
-           {
-               
-           }
+            if (_serverItem != null)
+            {
+
+            }
         }
 
         /// <summary>
@@ -408,7 +411,7 @@ namespace TFS_SA.TfsWapper
 
             try
             {
-                tfsConnection.VersionControlServer.DownloadFile(_serverFolder, _localFolder);
+                VCS.DownloadFile(_serverFolder, _localFolder);
                 _msg = String.Empty;
                 return Result.Success;
             }
@@ -419,6 +422,35 @@ namespace TFS_SA.TfsWapper
             }
         }
 
+        #endregion
+
+        #region Workspace
+        public Workspace[] GetWorkspaces()
+        {
+            return VCS.QueryWorkspaces(null, VCS.AuthenticatedUser, System.Net.Dns.GetHostName().ToString());
+                //return VCS.QueryWorkspaces(null, "", System.Net.Dns.GetHostName().ToString());
+                //You also can get remote workspaces
+                //QueryWorkspaces(worspaceName,worksapceOwner,computer)
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_wsName"></param>
+        /// <returns></returns>
+        public Workspace GetkWorkSpace(String _wsName)
+        {
+            var rs = VCS.QueryWorkspaces(string.IsNullOrEmpty(_wsName) ? null : _wsName,
+                                        null,
+                                        null);
+            if (rs.Length > 0)
+            {
+                return rs[0];
+            }
+            else
+            {
+                return this.VCS.CreateWorkspace(Environment.MachineName);
+            }
+        }
         #endregion
 
     }
