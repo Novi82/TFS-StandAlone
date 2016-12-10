@@ -109,10 +109,12 @@
             this.cbxWorkspace.Name = "cbxWorkspace";
             this.cbxWorkspace.Size = new System.Drawing.Size(222, 21);
             this.cbxWorkspace.TabIndex = 12;
+            this.cbxWorkspace.SelectedIndexChanged += new System.EventHandler(this.cbxWorkspace_SelectedIndexChanged);
             // 
             // trvServerFolder
             // 
             this.trvServerFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.trvServerFolder.HideSelection = false;
             this.trvServerFolder.Location = new System.Drawing.Point(0, 28);
             this.trvServerFolder.Name = "trvServerFolder";
             this.trvServerFolder.Size = new System.Drawing.Size(337, 428);
@@ -143,6 +145,7 @@
             this.lstFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstFile.FullRowSelect = true;
             this.lstFile.GridLines = true;
+            this.lstFile.HideSelection = false;
             this.lstFile.Location = new System.Drawing.Point(2, 28);
             this.lstFile.Name = "lstFile";
             this.lstFile.Size = new System.Drawing.Size(576, 428);
@@ -267,6 +270,7 @@
             this.btnRefesh.Text = "Refesh";
             this.btnRefesh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnRefesh.UseVisualStyleBackColor = true;
+            this.btnRefesh.Click += new System.EventHandler(this.btnRefesh_Click);
             // 
             // btnConnect
             // 
@@ -296,6 +300,7 @@
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TFS StandAlone";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.Shown += new System.EventHandler(this.frmMain_Shown);
             this.pnlContent.Panel1.ResumeLayout(false);
             this.pnlContent.Panel1.PerformLayout();

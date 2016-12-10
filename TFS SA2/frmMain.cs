@@ -1,17 +1,13 @@
-﻿using System;
+﻿using Microsoft.TeamFoundation.VersionControl.Client;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using TFS_SA.TfsWapper;
 using TFS_SA.Gui_Support;
-using Microsoft.TeamFoundation.VersionControl.Client;
-using System.Diagnostics;
+using TFS_SA.TfsWapper;
 
 namespace TFS_SA.GUI
 {
@@ -23,13 +19,11 @@ namespace TFS_SA.GUI
         //private String MappedPath = @"D:/test";
         protected TfsWrapper tfs;
         protected String localPath;
-        protected String currentPath;
         protected String ServerRootDir;
         protected FolderTreeSupport treeSupport;
         protected ListViewSupport lvSupport;
         protected Boolean isConnected;
         protected Item ServerItem;
-        protected String LocalItem;
 
         #endregion
 
@@ -50,110 +44,48 @@ namespace TFS_SA.GUI
         #region Form
         protected void frmMain_Shown(object sender, EventArgs e)
         {
-            this.ChangeInputArea(InputMode.Disable);
-            this.ttrMessage.Text = @"Loading Setting...";
-            this.StartProgress();
-            //this.isConnected = this.loadConnection();
-            //this.AddWorkSapces();
-            //var bw = new BackgroundWorker();
-            //// this allows our worker to report progress during work
-            //bw.WorkerReportsProgress = true;
-
-            //// what to do in the background thread
-            //bw.DoWork += new DoWorkEventHandler(
-            //delegate(object o, DoWorkEventArgs args)
-            //{
-            //    BackgroundWorker b = o as BackgroundWorker;
-            //});
-            //// what to do when worker completes its task (notify the user)
-            //bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(
-            //delegate(object o, RunWorkerCompletedEventArgs args)
-            //{
-            //    if (!isConnected)
-            //    {
-            //        var rs = tfs.Connect();
-            //        switch (rs)
-            //        {
-            //            case TFS_ConnectResult.Success:
-            //                this.isConnected = tfs.IsConnected;
-            //                break;
-            //            case TFS_ConnectResult.Cancel:
-            //                Environment.Exit(0);
-            //                break;
-            //        }
-            //    }
-            //    var root = this.tfs.GetRoot();
-            //    treeSupport.AddRootNode(root);
-            //    this.StopProgress();
-            //    this.ttrMessage.Text = @"Load Completed"; ;
-            //    this.ChangeInputArea(InputMode.Enable);
-            //});
-
-            //bw.RunWorkerAsync();
-            this.isConnected = this.loadConnection();
-
-            if (!isConnected)
-            {
-                var rs = tfs.Connect();
-                switch (rs)
-                {
-                    case TFS_ConnectResult.Success:
-                        this.isConnected = tfs.IsConnected;
-                        break;
-                    case TFS_ConnectResult.Cancel:
-                        Environment.Exit(0);
-                        break;
-                } 
-            }
-            this.AddWorkSapces();
-            if (cbxWorkspace.Items.Count > 0) {
-                cbxWorkspace.SelectedIndex = 0;
-            }
-           
-            var root = this.tfs.GetRoot();
-            treeSupport.AddRootNode(root);
-            this.StopProgress();
-            this.ttrMessage.Text = @"Load Completed"; ;
-            this.ChangeInputArea(InputMode.Enable);
-        }
-
-        #endregion
-
-        #region Button
-
-        protected void btnLocalPath_Click(object sender, EventArgs e)
-        {
-            //try
-            //{
-            //    FolderBrowserDialog fbd = new FolderBrowserDialog();
-            //    if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //    {
-            //        txtServerPath.Text = fbd.SelectedPath;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
-        }
-        protected void btnGet_Click(object sender, EventArgs e)
-        {
             try
             {
-                //String Target;
-                //String Source = trvServerFolder.SelectedNode.Name;
-                //FolderBrowserDialog fbd = new FolderBrowserDialog();
-                //if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                //{
-                //    Target = fbd.SelectedPath;
-                //    tfs.getFolder(Source, Target, workSpace);
-                //}
+                this.ChangeInputArea(InputMode.Disable);
+                this.ttrMessage.Text = @"Loading Setting...";
+                this.StartProgress();
+                this.isConnected = this.loadConnection();
+
+                if (!isConnected)
+                {
+                    var rs = tfs.Connect();
+                    switch (rs)
+                    {
+                        case TFS_ConnectResult.Success:
+                            this.isConnected = tfs.IsConnected;
+                            break;
+                        case TFS_ConnectResult.Cancel:
+                            Environment.Exit(0);
+                            break;
+                    }
+                }
+                this.AddWorkSapces();
+                if (cbxWorkspace.Items.Count > 0)
+                {
+                    cbxWorkspace.SelectedIndex = 0;
+                }
+
+                var root = this.tfs.GetRoot();
+                treeSupport.AddRootNode(root);
+                this.StopProgress();
+                this.ttrMessage.Text = @"Load Completed";
+                this.ChangeInputArea(InputMode.Enable);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+
+        #endregion
+
+        #region Button
+
         protected void btnConnect_Click(object sender, EventArgs e)
         {
             try
@@ -171,32 +103,60 @@ namespace TFS_SA.GUI
         }
         protected void lblLocalPath_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //if (!tfs.IsMapped)
-            //{
-            this.setMapLocal();
-            //}
-            //else
+            try
             {
-                var path = Path.Combine(lblLocalPath.Text);
-                if (Directory.Exists(path))
+                var localPath = Path.Combine(lblLocalPath.Text);
+
+                if (!tfs.IsLocalMapped(localPath))
                 {
-                    Process.Start(path);
+                    this.setMapLocal();
                 }
 
+                if (Directory.Exists(localPath))
+                {
+                    Process.Start(localPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         protected void btnGetFolder_Click(object sender, EventArgs e)
         {
+            try
+            {
+                this.ChangeInputArea(InputMode.Wait);
+                this.StartProgress();
 
+                if (!tfs.IsServerMapped(ServerItem.ServerItem))
+                {
+                    MessageBox.Show("Folder have not been mapped!");
+                    return;
+                }
+
+                var rs = tfs.dowload(ServerItem.ServerItem);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                this.ChangeInputArea(InputMode.Enable);
+                this.StopProgress();
+            }
         }
 
         protected void btnGetFile_Click(object sender, EventArgs e)
         {
             try
             {
+                this.ChangeInputArea(InputMode.Wait);
+                this.StartProgress();
                 String fileName = String.Empty;
                 var serverItem = lvSupport.getSelectedItem(ref fileName);
-                DownLoadFile(fileName, serverItem);
+                var rs = tfs.dowload(serverItem.ServerItem);
             }
             catch (Exception ex)
             {
@@ -205,6 +165,7 @@ namespace TFS_SA.GUI
             }
             finally
             {
+                this.ChangeInputArea(InputMode.Enable);
                 this.StopProgress();
             }
         }
@@ -216,8 +177,6 @@ namespace TFS_SA.GUI
         {
             try
             {
-                //var msg = tfs.tfsConnection.WorkSpace.MappingsAvailable.ToString();
-                //MessageBox.Show(msg);
                 var workspace = tfs.WorkSpace;
                 if (workspace.MappingsAvailable)
                 {
@@ -264,30 +223,44 @@ namespace TFS_SA.GUI
 
         protected void trvServerFolder_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            this.Cursor = Cursors.WaitCursor;
-            var currentNode = (FolderTreeNode)(e.Node);
-            ServerItem = currentNode.Item;
-            var path = ServerItem.ServerItem;
-            var rs = tfs.getFolders(path).Items;
-            var DetailItem = tfs.getItems(path);
-            //var folders = rs.Cast<Item>().ToList<>().OrderBy(o => o.ServerItem).ToList<Item>;
-            List<FolderTreeNode> folders = rs.Skip(1).Select(array => new FolderTreeNode(array)).ToList().OrderBy(o => o.Item.ServerItem)
-                                            .ToList<FolderTreeNode>();
-            if (folders.Count > 0)
+            try
             {
-                // UPDATE TREE
-                treeSupport.addNode(ref currentNode, folders, BuildMode.AddNew);
-                e.Node.Expand();
-                // UPDATE LIST VIEW
-                lvSupport.Load(DetailItem, tfs.GetLastedCommiter);
+
+                this.Cursor = Cursors.WaitCursor;
+                var currentNode = (FolderTreeNode)(e.Node);
+                ServerItem = currentNode.Item;
+                var path = ServerItem.ServerItem;
+                var rs = tfs.getFolders(path).Items;
+                var DetailItem = tfs.getItems(path);
+                trvServerFolder.SuspendLayout();
+                //var folders = rs.Cast<Item>().ToList<>().OrderBy(o => o.ServerItem).ToList<Item>;
+                List<FolderTreeNode> folders = rs.Skip(1).Select(array => new FolderTreeNode(array)).ToList().OrderBy(o => o.Item.ServerItem)
+                                                .ToList<FolderTreeNode>();
+                if (folders.Count > 0)
+                {
+                    // UPDATE TREE
+                    treeSupport.addNode(ref currentNode, folders, BuildMode.AddNew);
+                    e.Node.Expand();
+                    // UPDATE LIST VIEW
+                    lvSupport.Load(DetailItem, tfs.GetLastedCommiter);
+                }
+                else
+                {
+                    // CHANGE COLOR
+                    e.Node.ForeColor = Color.Blue;
+                    lvSupport.Clear();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // CHANGE COLOR
-                e.Node.ForeColor = Color.Blue;
-                lvSupport.Clear();
+                MessageBox.Show(ex.Message);
             }
-            this.Cursor = Cursors.Default;
+            finally
+            {
+                initLblLocalPath(ServerItem.ServerItem);
+                trvServerFolder.ResumeLayout();
+                this.Cursor = Cursors.Default;
+            }
         }
         #endregion
 
@@ -299,5 +272,39 @@ namespace TFS_SA.GUI
 
         #endregion
 
+        private void cbxWorkspace_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var item = (tfsWorkspaceItem)cbxWorkspace.SelectedItem;
+                tfs.WorkSpace = item.WorkSpace;
+                var server = (ServerItem == null) ? "" : ServerItem.ServerItem;
+                initLblLocalPath(server);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRefesh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var oldNode = trvServerFolder.SelectedNode;
+                trvServerFolder.SelectedNode = null;
+
+                trvServerFolder.SelectedNode = oldNode;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

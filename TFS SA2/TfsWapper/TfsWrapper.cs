@@ -27,13 +27,6 @@ namespace TFS_SA.TfsWapper
             set { _Tfs = value; }
         }
 
-        //private ProjectInfo _TeamProject;
-        //public ProjectInfo TeamProject
-        //{
-        //    get { return _TeamProject; }
-        //    set { _TeamProject = value; }
-        //}
-
         private VersionControlServer _VCS;
         public VersionControlServer VCS
         {
@@ -49,16 +42,7 @@ namespace TFS_SA.TfsWapper
         }
 
         public Boolean IsConnected;
-        //public TfsConnection tfsConnection;
-        //public TfsConnection tfsConnection { get; set; }
-        //public TfsWrapper()
-        //{
-        //    this.tfsConnection = new TfsConnection();
-        //}
-        //public Boolean IsMapped
-        //{
-        //    get { return tfsConnection.IsMapped; }
-        //}
+
         #endregion
 
         #region PRE_CONNECT
@@ -99,11 +83,9 @@ namespace TFS_SA.TfsWapper
                         if (tfsPp.SelectedProjects.Any())
                         {
                             //  The selected Team Project
-                            //this.TeamProject = tfsPp.SelectedProjects[0];
                             var fileName = Properties.Settings.Default["ConnectionFile"].ToString();
                             this.SaveConnection(_Tfs.Uri, fileName);
                             this.VCS = this.Tfs.GetService<VersionControlServer>();
-                            //todo getWorkSpace(this.LoadMapPath());
                             this.WorkSpace = this.GetkWorkSpace(Environment.MachineName);
                             this.CheckWorkSpacePermission(WorkSpace);
                             IsConnected = true;
@@ -138,14 +120,6 @@ namespace TFS_SA.TfsWapper
                 throw new Exception("Error Cannot Get WorkSpace!");
             }
             IsConnected = true;
-        }
-        /// <summary>
-        /// TODO - co le se xoa
-        /// </summary>
-        /// <param name="_WorkSpaceName"></param>
-        public void SetWorkSpaces(String _WorkSpaceName)
-        {
-
         }
 
         /// <summary>
@@ -297,11 +271,11 @@ namespace TFS_SA.TfsWapper
         //        return false;
         //    }
         //}
-        //public void SetMapPath(String _Path)
-        //{
-        //    LocalPath = _Path;
-        //    this.SaveMapPath(tfsConnection);
-        //}
+        public void SetMapPath(String _Local, String _Server)
+        {
+            //LocalPath = _Path;
+            WorkSpace.Map(_Server, _Local);
+        }
         /// <summary>
         /// get server Path
         /// </summary>
@@ -381,43 +355,63 @@ namespace TFS_SA.TfsWapper
             }
         }
 
-        /// <summary>
-        /// Download a File
-        /// </summary>
-        /// <param name="_serverFile">Server Path</param>
-        /// <param name="_localFile">Local Path</param>
-        /// <param name="_msg">Message Return</param>
-        /// <returns></returns>
-        public Result dowloadFile(Item _serverItem)
+        ///// <summary>
+        ///// Download a File
+        ///// </summary>
+        ///// <param name="_serverFile">Server Path</param>
+        ///// <param name="_localFile">Local Path</param>
+        ///// <param name="_msg">Message Return</param>
+        ///// <returns></returns>
+        //public Result dowloadFile(String _serverFolder, String _localFolder, ref String _msg)
+        //{
+        //    //// TODO
+        //    //throw new NotImplementedException();
+        //    try
+        //    {
+        //        VCS.DownloadFile(_serverFolder, _localFolder);
+        //        _msg = String.Empty;
+        //        return Result.Success;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        _msg = @"Can't Download File";
+        //        return Result.Failure;
+        //    }
+        //}
+
+        ///// <summary>
+        ///// Download Folder
+        ///// </summary>
+        ///// <param name="_serverFolder">Server Folder Path</param>
+        ///// <param name="_localFolder">Local Folder Path</param>
+        ///// <param name="_msg">Message Return</param>
+        ///// <returns></returns>
+        //public Result dowloadFolder(String _serverFolder, String _localFolder, ref String _msg)
+        //{
+        //    //// TODO
+        //    //throw new NotImplementedException();
+        //    try
+        //    {
+        //        VCS.DownloadFile(_serverFolder, _localFolder);
+        //        _msg = String.Empty;
+        //        return Result.Success;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        _msg = @"Can't Download Folder";
+        //        return Result.Failure;
+        //    }
+        //}
+
+        public Result dowload(String _serverFolder)
         {
-            throw new NotImplementedException();
-            if (_serverItem != null)
-            {
-
-            }
-        }
-
-        /// <summary>
-        /// Download Folder
-        /// </summary>
-        /// <param name="_serverFolder">Server Folder Path</param>
-        /// <param name="_localFolder">Local Folder Path</param>
-        /// <param name="_msg">Message Return</param>
-        /// <returns></returns>
-        public Result dowloadFolder(String _serverFolder, String _localFolder, ref String _msg)
-        {
-            // TODO
-            throw new NotImplementedException();
-
             try
             {
-                VCS.DownloadFile(_serverFolder, _localFolder);
-                _msg = String.Empty;
-                return Result.Success;
+               var status = this.WorkSpace.Get(new GetRequest(_serverFolder, RecursionType.Full, VersionSpec.Latest), GetOptions.GetAll | GetOptions.Overwrite);
+               return Result.Success;
             }
             catch (Exception)
             {
-                _msg = @"Can't Download File";
                 return Result.Failure;
             }
         }

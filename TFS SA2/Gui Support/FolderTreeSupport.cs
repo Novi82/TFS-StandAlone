@@ -1,6 +1,7 @@
 ﻿using Microsoft.TeamFoundation.VersionControl.Client;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace TFS_SA.Gui_Support
@@ -12,12 +13,11 @@ namespace TFS_SA.Gui_Support
         }
     public class FolderTreeSupport 
     {
-       
         public TreeView treeView { get; set; }
-
          public FolderTreeSupport(TreeView _treeView)
         {
             this.treeView = _treeView;
+
         }
         public void Clear()
         {
@@ -74,5 +74,6 @@ namespace TFS_SA.Gui_Support
                 return String.Empty;
             }
         }
+      
     }
 }

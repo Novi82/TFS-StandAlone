@@ -18,7 +18,8 @@ namespace TFS_SA.GUI
     public enum InputMode
     {
         Enable,
-        Disable
+        Disable,
+        Wait
     }
     public partial class frmMain
     {
@@ -78,10 +79,17 @@ namespace TFS_SA.GUI
                 case InputMode.Enable:
                     pnlContent.Enabled = true;
                     pnlMenu.Enabled = true;
+                    this.Cursor = Cursors.Default;
                     break;
                 case InputMode.Disable:
                     pnlContent.Enabled = false;
                     pnlMenu.Enabled = false;
+                    this.Cursor = Cursors.Default;
+                    break;
+                case InputMode.Wait:
+                    pnlContent.Enabled = true;
+                    pnlMenu.Enabled = true;
+                    this.Cursor = Cursors.WaitCursor;
                     break;
                 default:
                     break;
@@ -92,27 +100,24 @@ namespace TFS_SA.GUI
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                //tfs.SetMapPath(fbd.SelectedPath);
-                initLblLocalPath();
+                lblLocalPath.Text = fbd.SelectedPath;
+                var local = Path.Combine(lblLocalPath.Text);
+                var server = Path.Combine(ServerItem.ServerItem);
+                tfs.SetMapPath(local, server);
             }
         }
-        protected void initLblLocalPath()
+        protected void initLblLocalPath(String _Server)
         {
-            if (!String.IsNullOrWhiteSpace(LocalItem))
-            {
-                if (tfs.IsServerMapped(LocalItem))
+            if (tfs.IsServerMapped(_Server))
                 {
-                    //lblLocalPath.Text = tfs.LocalPath;
+                    var local = tfs.getLocalItem(_Server);
+                    lblLocalPath.Text = local;
                 }
                 else
                 {
                     lblLocalPath.Text = @"Map Local Now!";
                 }
-            }
-            else
-            {
-                lblLocalPath.Text = @"Map Local Now!";
-            }
+           
         }
         #endregion
 
@@ -147,7 +152,7 @@ namespace TFS_SA.GUI
         #endregion
 
         #region Directory Manager
-        protected void DownLoadFile(String fileName, Item serverItem)
+        protected void DownLoadFile(String fileName, String _Server)
         {
             this.StartProgress();
             var bw = new BackgroundWorker();
@@ -161,10 +166,9 @@ namespace TFS_SA.GUI
                 BackgroundWorker b = o as BackgroundWorker;
                 this.ttrMessage.Text = String.Format(@"Downloading: {0}", fileName);
                 //var stream = serverItem.DownloadFile();
-                String serverPath = serverItem.ServerItem;
-                String localPath = tfs.getLocalItem(serverPath);
+                String localPath = tfs.getLocalItem(_Server);
                 String Msg = String.Empty;
-                tfs.dowloadFile(serverPath, localPath, ref Msg);
+                tfs.dowloadFile(_Server, localPath, ref Msg);
             });
             // what to do when worker completes its task (notify the user)
             bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(
@@ -174,6 +178,27 @@ namespace TFS_SA.GUI
             });
             bw.RunWorkerAsync();
         }
+        protected void DownLoadFolder(String _Local, String _Server)
+        {
+            if (!Directory.Exists(_Local)){
+                Directory.CreateDirectory(_Local);
+            }
+
+            var folders = Directory.GetDirectories(localPath);
+            foreach (var folder in folders)
+            {
+                DownLoadFolder(folder, tfs.getServerItem(folder));
+            }
+
+            var files = Directory.GetFiles(_Local);
+            foreach(var file in files)
+            {
+                DownLoadFile(file, tfs.getServerItem(_Local));
+            }
+
+
+        }
+        
         #endregion
 
         #region Progress bar controller
@@ -211,5 +236,3 @@ namespace TFS_SA.GUI
 
     }
 }
-
-
