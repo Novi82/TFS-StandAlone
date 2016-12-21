@@ -46,14 +46,6 @@ namespace TFS_SA.TfsWapper
         #endregion
 
         #region PRE_CONNECT
-        ///// <summary>
-        ///// Load Connection 
-        ///// </summary>
-        ///// <param name="_tfsConnection">TFS Connection</param>
-        //public void LoadConnection(TfsConnection _tfsConnection)
-        //{
-        //    this.tfsConnection = _tfsConnection;
-        //}
 
         /// <summary>
         ///  Connect to TFS
@@ -241,36 +233,6 @@ namespace TFS_SA.TfsWapper
             }
         }
 
-       
-        //public String LoadMapPath()
-        //{
-        //    try
-        //    {
-        //        var localMap = Properties.Settings.Default["TfsLocalMap"].ToString();
-        //        LocalPath = localMap;
-        //        return localMap;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return null;
-        //    }
-        //}
-
-        //public Boolean SaveMapPath(TfsConnection _Connection)
-        //{
-        //    try
-        //    {
-        //        var localMap = _Connection.LocalPath.ToString();
-        //        Properties.Settings.Default["TfsLocalMap"] = localMap;
-        //        Properties.Settings.Default.Save();
-        //        return true;
-
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return false;
-        //    }
-        //}
         public void SetMapPath(String _Local, String _Server)
         {
             //LocalPath = _Path;
@@ -355,54 +317,6 @@ namespace TFS_SA.TfsWapper
             }
         }
 
-        ///// <summary>
-        ///// Download a File
-        ///// </summary>
-        ///// <param name="_serverFile">Server Path</param>
-        ///// <param name="_localFile">Local Path</param>
-        ///// <param name="_msg">Message Return</param>
-        ///// <returns></returns>
-        //public Result dowloadFile(String _serverFolder, String _localFolder, ref String _msg)
-        //{
-        //    //// TODO
-        //    //throw new NotImplementedException();
-        //    try
-        //    {
-        //        VCS.DownloadFile(_serverFolder, _localFolder);
-        //        _msg = String.Empty;
-        //        return Result.Success;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        _msg = @"Can't Download File";
-        //        return Result.Failure;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Download Folder
-        ///// </summary>
-        ///// <param name="_serverFolder">Server Folder Path</param>
-        ///// <param name="_localFolder">Local Folder Path</param>
-        ///// <param name="_msg">Message Return</param>
-        ///// <returns></returns>
-        //public Result dowloadFolder(String _serverFolder, String _localFolder, ref String _msg)
-        //{
-        //    //// TODO
-        //    //throw new NotImplementedException();
-        //    try
-        //    {
-        //        VCS.DownloadFile(_serverFolder, _localFolder);
-        //        _msg = String.Empty;
-        //        return Result.Success;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        _msg = @"Can't Download Folder";
-        //        return Result.Failure;
-        //    }
-        //}
-
         public Result dowload(String _serverFolder)
         {
             try
@@ -422,9 +336,6 @@ namespace TFS_SA.TfsWapper
         public Workspace[] GetWorkspaces()
         {
             return VCS.QueryWorkspaces(null, VCS.AuthenticatedUser, System.Net.Dns.GetHostName().ToString());
-                //return VCS.QueryWorkspaces(null, "", System.Net.Dns.GetHostName().ToString());
-                //You also can get remote workspaces
-                //QueryWorkspaces(worspaceName,worksapceOwner,computer)
         }
         /// <summary>
         /// 

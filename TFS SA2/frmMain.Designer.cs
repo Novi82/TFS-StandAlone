@@ -35,6 +35,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbxWorkspace = new System.Windows.Forms.ComboBox();
             this.trvServerFolder = new System.Windows.Forms.TreeView();
+            this.menuContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuGetLastest = new System.Windows.Forms.ToolStripMenuItem();
             this.lblLocalPath = new System.Windows.Forms.LinkLabel();
             this.lstFile = new System.Windows.Forms.ListView();
             this.ItemName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -56,6 +58,7 @@
             this.pnlContent.Panel1.SuspendLayout();
             this.pnlContent.Panel2.SuspendLayout();
             this.pnlContent.SuspendLayout();
+            this.menuContext.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.pnlMenu.SuspendLayout();
             this.SuspendLayout();
@@ -91,6 +94,7 @@
             this.btnWorkspace.TabIndex = 13;
             this.btnWorkspace.Text = "...";
             this.btnWorkspace.UseVisualStyleBackColor = true;
+            this.btnWorkspace.Click += new System.EventHandler(this.btnWorkspace_Click);
             // 
             // label1
             // 
@@ -120,6 +124,22 @@
             this.trvServerFolder.Size = new System.Drawing.Size(337, 428);
             this.trvServerFolder.TabIndex = 1;
             this.trvServerFolder.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trvServerFolder_AfterSelect);
+            this.trvServerFolder.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.trvServerFolder_NodeMouseClick);
+            // 
+            // menuContext
+            // 
+            this.menuContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuGetLastest});
+            this.menuContext.Name = "contextMenuStrip1";
+            this.menuContext.Size = new System.Drawing.Size(174, 26);
+            this.menuContext.Opening += new System.ComponentModel.CancelEventHandler(this.menuContext_Opening);
+            // 
+            // menuGetLastest
+            // 
+            this.menuGetLastest.Name = "menuGetLastest";
+            this.menuGetLastest.Size = new System.Drawing.Size(173, 22);
+            this.menuGetLastest.Text = "Get Lastest Version";
+            this.menuGetLastest.Click += new System.EventHandler(this.menuGetLastest_Click);
             // 
             // lblLocalPath
             // 
@@ -142,6 +162,7 @@
             this.User,
             this.Lastest,
             this.LastCheckin});
+            this.lstFile.ContextMenuStrip = this.menuContext;
             this.lstFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstFile.FullRowSelect = true;
             this.lstFile.GridLines = true;
@@ -308,6 +329,7 @@
             this.pnlContent.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlContent)).EndInit();
             this.pnlContent.ResumeLayout(false);
+            this.menuContext.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.pnlMenu.ResumeLayout(false);
@@ -340,6 +362,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbxWorkspace;
         private System.Windows.Forms.Button btnWorkspace;
+        private System.Windows.Forms.ContextMenuStrip menuContext;
+        private System.Windows.Forms.ToolStripMenuItem menuGetLastest;
     }
 }
 

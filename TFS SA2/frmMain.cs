@@ -128,17 +128,20 @@ namespace TFS_SA.GUI
             {
                 this.ChangeInputArea(InputMode.Wait);
                 this.StartProgress();
-
                 if (!tfs.IsServerMapped(ServerItem.ServerItem))
                 {
                     MessageBox.Show("Folder have not been mapped!");
                     return;
                 }
-
+                var name = tfs.getLocalItem(ServerItem.ServerItem);
+                this.ttrMessage.Text = "Downloading " + name;
                 var rs = tfs.dowload(ServerItem.ServerItem);
+                var msg = rs == Result.Success ? "Downloaded " + name : "Download failure";
+                this.ttrMessage.Text = msg;
             }
             catch (Exception ex)
             {
+                this.ttrMessage.Text = "Download failure";
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -156,12 +159,15 @@ namespace TFS_SA.GUI
                 this.StartProgress();
                 String fileName = String.Empty;
                 var serverItem = lvSupport.getSelectedItem(ref fileName);
+                this.ttrMessage.Text = "Downloading " + fileName;
                 var rs = tfs.dowload(serverItem.ServerItem);
+                var msg = rs == Result.Success ? "Downloaded " + fileName : "Download failure";
+                this.ttrMessage.Text = msg;
             }
             catch (Exception ex)
             {
+                this.ttrMessage.Text = "Download failure";
                 MessageBox.Show(ex.Message);
-                this.ttrMessage.Text = String.Empty;
             }
             finally
             {
@@ -306,5 +312,77 @@ namespace TFS_SA.GUI
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void btnWorkspace_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var frmWs = new frmWorkspace(tfs);
+                frmWs.ShowDialog();
+                AddWorkSapces();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void menuGetLastest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var parent = ((ContextMenuStrip)(((ToolStripMenuItem)sender).Owner)).SourceControl;
+                
+                if (parent == trvServerFolder){
+                    btnGetFolder_Click(sender, e);
+                }
+                else if (parent == lstFile)
+                {
+                    btnGetFile_Click(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        private void menuContext_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+             try
+            {
+                var parent = ((ContextMenuStrip)(sender)).SourceControl;
+
+                if (parent == lstFile)
+                {
+                    if (lstFile.SelectedItems.Count == 0)
+                    {
+                        e.Cancel = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void trvServerFolder_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            try
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    trvServerFolder.SelectedNode = e.Node;
+                    menuContext.Show(trvServerFolder,e.Location);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+            
     }
 }

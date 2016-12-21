@@ -140,23 +140,27 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmWorkspace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWorkspace.Designer.cs">
+      <DependentUpon>frmWorkspace.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gui Support\FolderTreeSupport.cs" />
     <Compile Include="Gui Support\FolderTreeNode.cs" />
     <Compile Include="Gui Support\ListViewSupport.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TfsWapper\Enum.cs" />
-    <Compile Include="TfsWapper\Kien.cs" />
     <Compile Include="TfsWapper\Roles.cs" />
-    <Compile Include="TfsWapper\TfsConfigurationServer.cs" />
-    <Compile Include="TfsWapper\TfsConnection .cs" />
-    <Compile Include="TfsWapper\TfsConnectionSerialize.cs" />
-    <Compile Include="TfsWapper\TfsWorkspace.cs" />
     <Compile Include="TfsWapper\TfsWrapper.cs" />
     <Compile Include="TfsWapper\WorkspaceItem.cs" />
     <Compile Include="Utils\Utils.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWorkspace.resx">
+      <DependentUpon>frmWorkspace.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

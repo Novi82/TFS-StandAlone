@@ -62,6 +62,7 @@ namespace TFS_SA.GUI
         protected void AddWorkSapces()
         {
             Workspace[] wss = tfs.GetWorkspaces();
+            cbxWorkspace.Items.Clear();
             var sorted = wss.OrderBy(x => x.Name);
             foreach (Workspace ws in sorted)
             {
